@@ -8,21 +8,22 @@ int main(){
   DIR *openD;
   openD = opendir(".");
 
-  
-  char directs[] = "Directories:\n";
-  char regs[] = "Regular Files:\n";
+  printf("Directories:\n");
   while((pDir = readdir(openD)) != NULL){
     if((pDir->d_type) == DT_DIR){
-      //char *temp = strcat("\t", pDir->d_name);
-      strcat(directs, pDir->d_name);
-    }else{
-      //char *temp = strcat("\t", pDir->d_name);
-      strcat(regs, pDir->d_name);
+      printf("\t%s\n",pDir->d_name);
     }
   }
-
-  printf("%s\n",strcat(directs, regs));
-
   closedir(openD);
+
+  openD = opendir(".");
+  printf("Regular Files:\n");
+  while((pDir = readdir(openD)) != NULL){
+    if((pDir->d_type) == DT_REG){
+      printf("\t%s\n",pDir->d_name);
+    }
+  }
+  closedir(openD);
+  
   return 0;
 }
